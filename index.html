@@ -135,11 +135,8 @@
             box-shadow: 0 4px 15px var(--header-shadow);
             margin-bottom: 12px;
             cursor: pointer;
-            overflow: visible;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
-        }
-        .main-header-box:hover {
-            transform: translateY(-1px);
+            overflow: hidden;
+            transition: box-shadow 0.2s ease, background 0.3s ease;
         }
         .main-header-box input[type="file"] {
             position: absolute;
@@ -193,46 +190,55 @@
             transform: translateY(-50%) rotate(45deg);
         }
 
-        /* قائمة الترس المنسدلة المنظمة والأنيقة */
-        .settings-menu {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            width: 296px;
-            max-width: calc(100vw - 32px);
-            background: var(--card-bg);
-            color: var(--text-main);
-            border: 1px solid var(--gray-border);
-            border-radius: 16px;
-            box-shadow: 0 20px 42px rgba(0, 0, 0, 0.45);
-            z-index: 10050;
-            padding: 0;
-            overflow: hidden;
-            text-align: right;
-            cursor: default;
-            opacity: 1;
+        /* نافذة الإعدادات والسمات المنبثقة فوق كل العناصر بدون أي تداخل */
+        .settings-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(3px);
+            z-index: 50000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
         }
         .hidden-menu {
             display: none !important;
         }
+        .settings-menu-card {
+            width: 100%;
+            max-width: 360px;
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--gray-border);
+            border-radius: 18px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.55);
+            overflow: hidden;
+            text-align: right;
+            animation: popInMenu 0.18s ease-out;
+        }
+        @keyframes popInMenu {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
         .settings-menu-header {
             background: var(--header-gradient);
             color: #ffffff;
-            padding: 10px 14px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.88rem;
+            font-size: 0.95rem;
             font-weight: 800;
         }
         .settings-menu-close {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.22);
             color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.35);
-            border-radius: 7px;
-            width: 24px;
-            height: 24px;
-            font-size: 0.85rem;
+            border-radius: 8px;
+            width: 28px;
+            height: 28px;
+            font-size: 0.9rem;
             font-weight: 800;
             display: inline-flex;
             align-items: center;
@@ -241,22 +247,22 @@
             line-height: 1;
         }
         .settings-menu-close:hover {
-            background: rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.38);
         }
         .settings-menu-content {
-            padding: 10px 12px 12px;
+            padding: 14px;
             background: var(--card-bg);
         }
         .settings-menu-title {
-            font-size: 0.78rem;
+            font-size: 0.82rem;
             font-weight: 800;
             color: var(--text-muted);
-            padding: 2px 4px 6px;
+            padding: 0 4px 8px;
         }
         .theme-list-stack {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
         .theme-option-btn {
             width: 100%;
@@ -264,12 +270,12 @@
             align-items: center;
             justify-content: space-between;
             gap: 10px;
-            padding: 8px 11px;
-            border-radius: 10px;
+            padding: 10px 12px;
+            border-radius: 11px;
             border: 1px solid var(--gray-border);
             background: var(--gray-light);
             color: var(--text-main);
-            font-size: 0.84rem;
+            font-size: 0.88rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.18s ease;
@@ -277,21 +283,20 @@
         .theme-option-btn:hover {
             background: var(--blue-light);
             border-color: var(--blue-primary);
-            transform: translateX(-2px);
         }
         .theme-option-btn.active-theme {
             border-color: var(--blue-primary);
             background: var(--blue-light);
             color: var(--blue-primary);
-            box-shadow: inset 0 0 0 1px var(--blue-primary);
+            box-shadow: inset 0 0 0 1.5px var(--blue-primary);
         }
         .theme-option-left {
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 8px;
         }
         .theme-check-mark {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 900;
             opacity: 0;
             color: var(--blue-primary);
@@ -304,32 +309,32 @@
             align-items: center;
             gap: 5px;
             background: var(--input-bg);
-            padding: 3px 7px;
+            padding: 4px 8px;
             border-radius: 999px;
             border: 1px solid var(--gray-border);
         }
         .theme-dot {
-            width: 11px;
-            height: 11px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             border: 1px solid rgba(0, 0, 0, 0.2);
         }
         .settings-divider {
             height: 1px;
             background: var(--gray-border);
-            margin: 10px 0;
+            margin: 12px 0;
         }
         .retired-menu-btn {
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 9px 12px;
-            border-radius: 11px;
-            border: 1px solid var(--blue-primary);
+            padding: 11px 14px;
+            border-radius: 12px;
+            border: 1.5px solid var(--blue-primary);
             background: var(--blue-light);
             color: var(--blue-header);
-            font-size: 0.86rem;
+            font-size: 0.9rem;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -341,11 +346,11 @@
         .retired-count-badge {
             background: var(--blue-primary);
             color: #ffffff;
-            font-size: 0.76rem;
-            padding: 2px 8px;
+            font-size: 0.8rem;
+            padding: 2px 10px;
             border-radius: 999px;
             font-weight: 800;
-            min-width: 24px;
+            min-width: 28px;
             text-align: center;
         }
         .retired-menu-btn:hover .retired-count-badge {
@@ -357,8 +362,9 @@
         .retired-modal-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.65);
-            z-index: 20000;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(3px);
+            z-index: 60000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -373,9 +379,9 @@
             width: 100%;
             max-width: 720px;
             max-height: 85vh;
-            border-radius: 14px;
+            border-radius: 16px;
             border: 1px solid var(--gray-border);
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -395,7 +401,7 @@
             color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.35);
             border-radius: 8px;
-            padding: 3px 10px;
+            padding: 4px 12px;
             font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
@@ -656,7 +662,6 @@
             .main-header-box { padding: 10px 42px; }
             .main-header-title { font-size: 1.05rem; }
             input { padding: 6px 8px; font-size: 0.88rem; }
-            .settings-menu { width: 276px; }
         }
     </style>
 </head>
@@ -669,61 +674,6 @@
         <button type="button" class="settings-gear-btn" id="settingsGearBtn" onclick="toggleSettingsMenu(event)" title="الإعدادات والسمات والمعاشات">&#9881;</button>
         <div class="add-badge">+ إضافة ملف إكسيل</div>
         <div class="main-header-title">بيانات العاملين شركة الدلتا للسكر</div>
-
-        <!-- قائمة الترس: 5 سيمات + الموظفين خارج الخدمة -->
-        <div class="settings-menu hidden-menu" id="settingsMenu" onclick="event.stopPropagation()">
-            <div class="settings-menu-header">
-                <span>الإعدادات والسمات</span>
-                <button type="button" class="settings-menu-close" onclick="closeSettingsMenu()" title="إغلاق">&#10005;</button>
-            </div>
-            <div class="settings-menu-content">
-                <div class="settings-menu-title">اختر سمة البرنامج (5 سيمات):</div>
-                <div class="theme-list-stack">
-                    <button type="button" class="theme-option-btn active-theme" data-theme-val="royal-navy" onclick="applyTheme('royal-navy')">
-                        <span class="theme-option-left">
-                            <span class="theme-check-mark">&#10003;</span>
-                            <span>1. الافتراضي الملكي</span>
-                        </span>
-                        <span class="theme-dots"><span class="theme-dot" style="background:#1e3a8a"></span><span class="theme-dot" style="background:#3b82f6"></span></span>
-                    </button>
-                    <button type="button" class="theme-option-btn" data-theme-val="midnight-dark" onclick="applyTheme('midnight-dark')">
-                        <span class="theme-option-left">
-                            <span class="theme-check-mark">&#10003;</span>
-                            <span>2. الوضع الليلي الفاخر</span>
-                        </span>
-                        <span class="theme-dots"><span class="theme-dot" style="background:#0f172a"></span><span class="theme-dot" style="background:#60a5fa"></span></span>
-                    </button>
-                    <button type="button" class="theme-option-btn" data-theme-val="emerald-delta" onclick="applyTheme('emerald-delta')">
-                        <span class="theme-option-left">
-                            <span class="theme-check-mark">&#10003;</span>
-                            <span>3. زمرد الدلتا</span>
-                        </span>
-                        <span class="theme-dots"><span class="theme-dot" style="background:#065f46"></span><span class="theme-dot" style="background:#0d9488"></span></span>
-                    </button>
-                    <button type="button" class="theme-option-btn" data-theme-val="burgundy-amber" onclick="applyTheme('burgundy-amber')">
-                        <span class="theme-option-left">
-                            <span class="theme-check-mark">&#10003;</span>
-                            <span>4. عنابي وعنبر</span>
-                        </span>
-                        <span class="theme-dots"><span class="theme-dot" style="background:#881337"></span><span class="theme-dot" style="background:#d97706"></span></span>
-                    </button>
-                    <button type="button" class="theme-option-btn" data-theme-val="twilight-violet" onclick="applyTheme('twilight-violet')">
-                        <span class="theme-option-left">
-                            <span class="theme-check-mark">&#10003;</span>
-                            <span>5. غسق البنفسج</span>
-                        </span>
-                        <span class="theme-dots"><span class="theme-dot" style="background:#4c1d95"></span><span class="theme-dot" style="background:#9333ea"></span></span>
-                    </button>
-                </div>
-
-                <div class="settings-divider"></div>
-
-                <button type="button" class="retired-menu-btn" onclick="openRetiredModal()">
-                    <span>الموظفين خارج الخدمة</span>
-                    <span class="retired-count-badge" id="retiredBadgeCount">0</span>
-                </button>
-            </div>
-        </div>
     </div>
 
     <div id="fileStatus">جاري التحقق من بيانات العاملين...</div>
@@ -797,6 +747,63 @@
     </div>
 </div>
 
+<!-- نافذة الإعدادات والسمات (منفصلة تماماً لمنع أي تداخل) -->
+<div class="settings-modal-backdrop hidden-menu" id="settingsMenuBackdrop" onclick="closeSettingsMenu()">
+    <div class="settings-menu-card" onclick="event.stopPropagation()">
+        <div class="settings-menu-header">
+            <span>الإعدادات والسمات</span>
+            <button type="button" class="settings-menu-close" onclick="closeSettingsMenu()" title="إغلاق">&#10005;</button>
+        </div>
+        <div class="settings-menu-content">
+            <div class="settings-menu-title">اختر سمة البرنامج (5 سيمات):</div>
+            <div class="theme-list-stack">
+                <button type="button" class="theme-option-btn active-theme" data-theme-val="royal-navy" onclick="applyTheme('royal-navy')">
+                    <span class="theme-option-left">
+                        <span class="theme-check-mark">&#10003;</span>
+                        <span>1. الافتراضي الملكي</span>
+                    </span>
+                    <span class="theme-dots"><span class="theme-dot" style="background:#1e3a8a"></span><span class="theme-dot" style="background:#3b82f6"></span></span>
+                </button>
+                <button type="button" class="theme-option-btn" data-theme-val="midnight-dark" onclick="applyTheme('midnight-dark')">
+                    <span class="theme-option-left">
+                        <span class="theme-check-mark">&#10003;</span>
+                        <span>2. الوضع الليلي الفاخر</span>
+                    </span>
+                    <span class="theme-dots"><span class="theme-dot" style="background:#0f172a"></span><span class="theme-dot" style="background:#60a5fa"></span></span>
+                </button>
+                <button type="button" class="theme-option-btn" data-theme-val="emerald-delta" onclick="applyTheme('emerald-delta')">
+                    <span class="theme-option-left">
+                        <span class="theme-check-mark">&#10003;</span>
+                        <span>3. زمرد الدلتا</span>
+                    </span>
+                    <span class="theme-dots"><span class="theme-dot" style="background:#065f46"></span><span class="theme-dot" style="background:#0d9488"></span></span>
+                </button>
+                <button type="button" class="theme-option-btn" data-theme-val="burgundy-amber" onclick="applyTheme('burgundy-amber')">
+                    <span class="theme-option-left">
+                        <span class="theme-check-mark">&#10003;</span>
+                        <span>4. عنابي وعنبر</span>
+                    </span>
+                    <span class="theme-dots"><span class="theme-dot" style="background:#881337"></span><span class="theme-dot" style="background:#d97706"></span></span>
+                </button>
+                <button type="button" class="theme-option-btn" data-theme-val="twilight-violet" onclick="applyTheme('twilight-violet')">
+                    <span class="theme-option-left">
+                        <span class="theme-check-mark">&#10003;</span>
+                        <span>5. غسق البنفسج</span>
+                    </span>
+                    <span class="theme-dots"><span class="theme-dot" style="background:#4c1d95"></span><span class="theme-dot" style="background:#9333ea"></span></span>
+                </button>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <button type="button" class="retired-menu-btn" onclick="openRetiredModal()">
+                <span>الموظفين خارج الخدمة</span>
+                <span class="retired-count-badge" id="retiredBadgeCount">0</span>
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- نافذة الموظفين خارج الخدمة -->
 <div class="retired-modal-backdrop hidden-modal" id="retiredModalBackdrop" onclick="closeRetiredModal()">
     <div class="retired-modal-card" onclick="event.stopPropagation()">
@@ -838,14 +845,15 @@ try {
 
 function toggleSettingsMenu(event) {
     event.stopPropagation();
+    closeAllDropdowns();
     updateRetiredBadge();
-    var menu = document.getElementById('settingsMenu');
-    menu.classList.toggle('hidden-menu');
+    var backdrop = document.getElementById('settingsMenuBackdrop');
+    backdrop.classList.toggle('hidden-menu');
 }
 
 function closeSettingsMenu() {
-    var menu = document.getElementById('settingsMenu');
-    if (menu) menu.classList.add('hidden-menu');
+    var backdrop = document.getElementById('settingsMenuBackdrop');
+    if (backdrop) backdrop.classList.add('hidden-menu');
 }
 
 try {
@@ -1282,9 +1290,6 @@ function closeAllDropdowns() {
 document.addEventListener('click', function(e) {
     if (!e.target.closest('.input-group')) {
         closeAllDropdowns();
-    }
-    if (!e.target.closest('.main-header-box')) {
-        closeSettingsMenu();
     }
 });
 </script>
